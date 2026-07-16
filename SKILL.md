@@ -110,15 +110,15 @@ track-cli GFFR26043939146721 --app-id 6e16d3c70ced --app-secret c44c...1a8
 Agent 查询到轨迹数据后，应按以下格式以**表格**呈现给用户：
 
 ```
- 时间          节点       地点        英文描述                              本地描述
-──────────────────────────────────────────────────────────────────────────────────────
- 02-12 14:50  签收      Châtenay    Delivered Yard PIN:No                   Livré brodeur, PIN: Non
- 02-12 14:49  快递员收件  Châtenay    The driver is out for delivery         Le chauffeur est en route
- 02-12 14:49  站点签出    TESTLQ      Preparing for delivery                Le colis est prêt à être livré
- 02-12 14:48  站点签入    TESTLQ      Arrived at station                    Votre colis est arrivé
- 02-12 14:48  转运中心签出 PARIS       The package left sorting center       Colis en cours d'acheminement
- 02-12 07:48  转运中心签入 PARIS       arriver in sorting center             signé PRS
- 02-12 14:43  已下单                 Your package is being prepared          CPN a reçu les informations
+ 时间           节点          地点         英文描述                                   本地描述
+ ────────────────────────────────────────────────────────────────────────────────────────────────
+ 02-12 14:50    签收          Châtenay     Delivered Yard PIN:No                   Livré brodeur, PIN: Non
+ 02-12 14:49    快递员收件     Châtenay     The driver is out for delivery         Le chauffeur est en route
+ 02-12 14:49    站点签出       TESTLQ       Preparing for delivery                Le colis est prêt à être livré
+ 02-12 14:48    站点签入       TESTLQ       Arrived at station                    Votre colis est arrivé
+ 02-12 14:48    转运中心签出    PARIS        The package left sorting center       Colis en cours d'acheminement
+ 02-12 07:48    转运中心签入    PARIS        arriver in sorting center             signé PRS
+ 02-12 14:43    已下单                      Your package is being prepared          CPN a reçu les informations
 ```
 
 - 按 `operationTime` 从新到旧排列（最新的在最上面）
