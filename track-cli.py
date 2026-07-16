@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Track CLI — 运单轨迹查询
 安装: npm install -g @rory2026/track-cli
