@@ -5,11 +5,18 @@
  * 用法: track-cli <运单号> [--app-id xxx] [--app-secret xxx]
  */
 
+const http = require("http");
 const https = require("https");
 const crypto = require("crypto");
+const { URL } = require("url");
 
 const DEFAULT_DOMAIN = "https://uat-api-eu.gofoexpress.com";
 const DEFAULT_ROUTE_COUNTRY = "FR";
+const DEFAULT_APP_ID = "6e16d3c70ced";
+const DEFAULT_APP_SECRET = "c44c...1a8";
+
+// 忽略 SSL 证书校验（跟 Java 的 NoopHostnameVerifier + trustAll 一致）
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 function getSignature(secret, method, uri, body, date) {
   date = date || Date.now();
@@ -23,9 +30,11 @@ function getSignature(secret, method, uri, body, date) {
   return [date, sig];
 }
 
-function request(url, options, body) {
+function request(urlStr, options, body) {
   return new Promise((resolve, reject) => {
-    const req = https.request(url, options, (res) => {
+    const url = new URL(urlStr);
+    const mod = url.protocol === "https:" ? https : http;
+    const req = mod.request(urlStr, options, (res) => {
       let data = "";
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
@@ -44,23 +53,17 @@ function request(url, options, body) {
 
 async function getToken(domain, appId, appSecret) {
   const uri = "/openapi/oauth2/token";
-  const body = JSON.stringify({ grantType: "client_credentials", appId, appSecret });
-  const [date, sign] = getSignature(appSecret, "POST", uri, body);
-  const url = new URL(uri, domain);
+  // 保持和 Java 一样的 key 顺序
+  const body = JSON.stringify({
+    appId: appId,
+    appSecret: appSecret,
+    grantType: "client_credentials",
+  });
   return (
-    await request(
-      url,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "route-country": DEFAULT_ROUTE_COUNTRY,
-          sign,
-          date: String(date),
-        },
-      },
-      body,
-    )
+    await request(`${domain}${uri}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    }, body)
   ).accessToken || "";
 }
 
@@ -68,8 +71,7 @@ async function getTrack(domain, appId, appSecret, trackingNo) {
   const token = await getToken(domain, appId, appSecret);
   const uri = `/open-api/v2/order/track/${trackingNo}`;
   const [date, sign] = getSignature(appSecret, "GET", uri);
-  const url = new URL(uri, domain);
-  return request(url, {
+  return request(`${domain}${uri}`, {
     headers: {
       "route-country": DEFAULT_ROUTE_COUNTRY,
       sign,
@@ -106,23 +108,16 @@ async function main() {
   }
 
   let trackingNo = null;
-  let appId = process.env.TRACK_APP_ID || "";
-  let appSecret = process.env.TRACK_APP_SECRET || "";
+  let appId = process.env.TRACK_APP_ID || DEFAULT_APP_ID;
+  let appSecret = process.env.TRACK_APP_SECRET || DEFAULT_APP_SECRET;
   let domain = process.env.TRACK_DOMAIN || DEFAULT_DOMAIN;
 
   for (let i = 0; i < args.length; i++) {
     switch (args[i]) {
-      case "--app-id":
-        appId = args[++i];
-        break;
-      case "--app-secret":
-        appSecret = args[++i];
-        break;
-      case "--domain":
-        domain = args[++i];
-        break;
-      default:
-        trackingNo = args[i];
+      case "--app-id": appId = args[++i]; break;
+      case "--app-secret": appSecret = args[++i]; break;
+      case "--domain": domain = args[++i]; break;
+      default: trackingNo = args[i];
     }
   }
 
