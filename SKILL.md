@@ -18,16 +18,16 @@ author: Rory Yang
 ## 第 1 步 安装
 
 ```shell
-npm install -g @rory2026/track-cli
+npm install -g https://github.com/rory2026/cli
 ```
 
 ## 第 2 步 配置应用凭证
 
-Agent 引导用户提供 App ID 和 App Secret，然后通过环境变量传入。
+Agent 运行以下命令，并让用户提供 App ID 和 App Secret。
 
 ```shell
 export TRACK_APP_ID="用户提供的appId"
-export TRACK_APP_SECRET="用户提供的appSecret"
+export TRACK_APP_SECRET=**
 ```
 
 ## 第 3 步 查询轨迹
@@ -48,12 +48,10 @@ track-cli <运单号>
 
 ```shell
 # 安装
-npm install -g @rory2026/track-cli
+npm install -g https://github.com/rory2026/cli
 
 # 配置凭证
 export TRACK_APP_ID="cli_a9...d5"
-export TRACK_APP_SECRET="p6s...kQ"
-
-# 查询轨迹
+export TRACK_APP_SECRET=*** 查询轨迹
 track-cli TRK123456
 ```
