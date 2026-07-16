@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.tgz
+.npmrc
+.env
+publish_to_npm.js
+publish.js
+test_auth.js
+test_tokens.js
