@@ -42,9 +42,7 @@ npm install -g https://github.com/rory2026/cli
 
 ```shell
 set TRACK_APP_ID=用户提供的appId
-set TRACK_APP_SECRET=用户提供的appSecret
-```
-
+set TRACK_APP_SECRET=用户提供的a...
 ## 第 3 步 查询轨迹
 
 ```shell
@@ -65,23 +63,88 @@ npm install -g https://github.com/rory2026/cli
 
 # 配置凭证
 set TRACK_APP_ID=6e16d3c70ced
-set TRACK_APP_SECRET=***# 查询轨迹
+set TRACK_APP_SECRET=*** 查询轨迹
 track-cli GFFR26043939146721
 
 # 或一行完成
-track-cli GFFR26043939146721 --app-id 6e16d3c70ced --app-secret c44cd0050bf9405db5eed92f28b4c1a8
+track-cli GFFR26043939146721 --app-id 6e16d3c70ced --app-secret c44c...1a8
 ```
 
 ## 返回数据说明
 
-查询成功返回 JSON 数组，每条记录包含：
-- `operationTime` — 操作时间
-- `enContext` / `pubEsContext` — 轨迹描述（英文/本地语言）
-- `location` — 所在地
-- `operator` — 操作人
-- `operationMove` — 操作类型编码
-- `signer` — 签收人
-- `delStatus` — 签收状态
+```json
+{
+  "code": 200,
+  "message": "操作成功",
+  "messageEn": "Success",
+  "status": 1,
+  "data": [
+    {
+      "operationMove": "208",
+      "orderNo": "UAT4837897377432",
+      "enContext": "The courier is out for delivery",
+      "location": "test01-1",
+      "thirdWaybillNo": "UAT4837897377432",
+      "pubEsContext": "De koerier is onderweg voor levering",
+      "operator": "test_delivery",
+      "operationTime": "2024-07-31 10:58:24"
+    }
+  ]
+}
+```
+
+### 字段说明
+
+| 字段 | 说明 |
+|---|---|
+| `orderNo` | 运单号 |
+| `thirdWaybillNo` | 客户单号 |
+| `operationMove` | 轨迹编码（见下方编码表） |
+| `enContext` | 轨迹英文描述 |
+| `pubEsContext` | 本地语轨迹描述 |
+| `location` | 轨迹签收的地点 |
+| `operator` | 操作人姓名 |
+| `operationTime` | 操作时间 |
+
+### 轨迹编码表
+
+| 编码 | 节点名称 |
+|---|---|
+| 8 | 扣件 |
+| 100 | 已下单 |
+| 200 | 转运中心签出 |
+| 201 | 站点签入 |
+| 202 | 转运中心签入 |
+| 203 | 站点签出 |
+| 204 | 退回转运中心 |
+| 205 | 签收 |
+| 206 | 派送异常 |
+| 208 | 快递员收件 |
+| 209 | 退回站点 |
+| 210 | 弃件销毁 |
+| 217 | 集包 |
+| 218 | 重派扫描 |
+| 256 | 待出库 |
+| 257 | 退件签收 |
+| 259 | 退件出库 |
+| 260 | 站点到件 |
+| 261 | 退件到站 |
+| 262 | 退件到仓 |
+| 264 | 退件待装车 |
+| 265 | 预报未到 |
+| 300 | 丢失 |
+| 301 | 被抢 |
+| 410 | 装车 |
+| 411 | 车辆出发 |
+| 412 | 车辆到达 |
+| 413 | 卸车 |
+| 500 | 扫描分拣 |
+| 600 | 组托扫描 |
+| 601 | 上架 |
+| 602 | 下架 |
+| 611 | 拒绝退回 |
+| 612 | 中心到件 |
+| 700 | 站点疑似丢失 |
 
 ## 参数说明
 
