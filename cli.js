@@ -12,8 +12,6 @@ const { URL } = require("url");
 
 const DEFAULT_DOMAIN = "https://uat-api-eu.gofoexpress.com";
 const DEFAULT_ROUTE_COUNTRY = "FR";
-const DEFAULT_APP_ID = "6e16d3c70ced";
-const DEFAULT_APP_SECRET = "c44c...1a8";
 
 // 忽略 SSL 证书校验（跟 Java 的 NoopHostnameVerifier + trustAll 一致）
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -108,8 +106,8 @@ async function main() {
   }
 
   let trackingNo = null;
-  let appId = process.env.TRACK_APP_ID || DEFAULT_APP_ID;
-  let appSecret = process.env.TRACK_APP_SECRET || DEFAULT_APP_SECRET;
+  let appId = process.env.TRACK_APP_ID || "";
+  let appSecret = process.env.TRACK_APP_SECRET || "";
   let domain = process.env.TRACK_DOMAIN || DEFAULT_DOMAIN;
 
   for (let i = 0; i < args.length; i++) {
