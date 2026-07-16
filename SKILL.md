@@ -23,11 +23,17 @@ npm install -g https://github.com/rory2026/cli
 
 ## 第 2 步 配置应用凭证
 
-Agent 运行以下命令，并让用户提供 App ID 和 App Secret。
+提示用户输入 App ID 和 App Secret，Agent 将其设置为环境变量。
+
+```
+用户，请提供你的 App ID 和 App Secret，我将用来配置轨迹查询工具。
+```
+
+获取后执行：
 
 ```shell
-export TRACK_APP_ID="用户提供的appId"
-export TRACK_APP_SECRET=**
+export TRACK_APP_ID="<用户提供的appId>"
+export TRACK_APP_SECRET=*** 
 ```
 
 ## 第 3 步 查询轨迹
@@ -50,7 +56,7 @@ track-cli <运单号>
 # 安装
 npm install -g https://github.com/rory2026/cli
 
-# 配置凭证
+# 提示用户提供凭证，然后配置
 export TRACK_APP_ID="cli_a9...d5"
 export TRACK_APP_SECRET=*** 查询轨迹
 track-cli TRK123456
