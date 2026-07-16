@@ -42,8 +42,7 @@ npm install -g https://github.com/rory2026/cli
 
 ```shell
 set TRACK_APP_ID=用户提供的appId
-set TRACK_APP_SECRET=用户提供的a...
-## 第 3 步 查询轨迹
+set TRACK_APP_SECRET=*** 第 3 步 查询轨迹
 
 ```shell
 track-cli <运单号>
@@ -99,12 +98,33 @@ track-cli GFFR26043939146721 --app-id 6e16d3c70ced --app-secret c44c...1a8
 |---|---|
 | `orderNo` | 运单号 |
 | `thirdWaybillNo` | 客户单号 |
-| `operationMove` | 轨迹编码（见下方编码表） |
+| `operationMove` | 轨迹编码 |
 | `enContext` | 轨迹英文描述 |
 | `pubEsContext` | 本地语轨迹描述 |
-| `location` | 轨迹签收的地点 |
+| `location` | 轨迹发生地点 |
 | `operator` | 操作人姓名 |
 | `operationTime` | 操作时间 |
+
+### 给用户展示格式
+
+Agent 查询到轨迹数据后，应按以下格式以**表格**呈现给用户：
+
+```
+时间            节点              地点        描述
+──────────────────────────────────────────────────────
+02-12 14:50    签收              Châtenay    Delivered Yard PIN:No
+02-12 14:49    快递员收件         Châtenay    The driver is out for delivery
+02-12 14:49    站点签出           TESTLQ      Preparing for delivery
+02-12 14:48    站点签入           TESTLQ      Arrived at station
+02-12 14:48    转运中心签出       PARIS       The package left sorting center
+02-12 07:48    转运中心签入       PARIS       arriver in sorting center
+02-12 14:43    已下单                        Your package is being prepared
+```
+
+- 按 `operationTime` 时间倒序排列（最新在前）
+- `节点` 列根据 `operationMove` 编码翻译成中文节点名称
+- `描述` 列取 `enContext` 或 `pubEsContext`
+- 如果 `location` 为空则留空
 
 ### 轨迹编码表
 
