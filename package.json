@@ -1,9 +1,9 @@
 {
   "name": "@rory2026/track-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "运单轨迹查询 CLI",
   "bin": {
-    "track-cli": "cli.js"
+    "track-cli": "./track-cli.py"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -13,7 +13,7 @@
     "node": ">=18"
   },
   "files": [
-    "cli.js",
+    "track-cli.py",
     "SKILL.md"
   ]
 }
