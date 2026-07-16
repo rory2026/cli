@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * GoFoExpress Track CLI — 运单轨迹查询
- * 安装: npm install -g @gofo/track
- * 用法: gofo-track <运单号> [--app-id xxx] [--app-secret xxx]
+ * Track CLI — 运单轨迹查询
+ * 安装: npm install -g @rory2026/track-cli
+ * 用法: track-cli <运单号> [--app-id xxx] [--app-secret xxx]
  */
 
 const https = require("https");
@@ -47,20 +47,21 @@ async function getToken(domain, appId, appSecret) {
   const body = JSON.stringify({ grantType: "client_credentials", appId, appSecret });
   const [date, sign] = getSignature(appSecret, "POST", uri, body);
   const url = new URL(uri, domain);
-  const result = await request(
-    url,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "route-country": DEFAULT_ROUTE_COUNTRY,
-        sign,
-        date: String(date),
+  return (
+    await request(
+      url,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "route-country": DEFAULT_ROUTE_COUNTRY,
+          sign,
+          date: String(date),
+        },
       },
-    },
-    body,
-  );
-  return result.accessToken || "";
+      body,
+    )
+  ).accessToken || "";
 }
 
 async function getTrack(domain, appId, appSecret, trackingNo) {
@@ -82,32 +83,32 @@ async function main() {
   const args = process.argv.slice(2);
   if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
     console.log(`
-GoFoExpress 运单轨迹查询
+运单轨迹查询 CLI
 
 用法:
-  gofo-track <运单号> [选项]
+  track-cli <运单号> [选项]
 
 选项:
-  --app-id <id>          App ID (或 GOFO_APP_ID 环境变量)
-  --app-secret <secret>  App Secret (或 GOFO_APP_SECRET 环境变量)
+  --app-id <id>          App ID (或 TRACK_APP_ID 环境变量)
+  --app-secret <secret>  App Secret (或 TRACK_APP_SECRET 环境变量)
   --domain <url>         API 域名 (默认: ${DEFAULT_DOMAIN})
   --help                 显示帮助
 
 示例:
-  gofo-track TRK123456 --app-id xxx --app-secret xxx
+  track-cli TRK123456 --app-id xxx --app-secret xxx
 
 环境变量:
-  GOFO_APP_ID       App ID
-  GOFO_APP_SECRET   App Secret
-  GOFO_DOMAIN       API 域名
+  TRACK_APP_ID       App ID
+  TRACK_APP_SECRET   App Secret
+  TRACK_DOMAIN       API 域名
 `);
     return;
   }
 
   let trackingNo = null;
-  let appId = process.env.GOFO_APP_ID || "";
-  let appSecret = process.env.GOFO_APP_SECRET || "";
-  let domain = process.env.GOFO_DOMAIN || DEFAULT_DOMAIN;
+  let appId = process.env.TRACK_APP_ID || "";
+  let appSecret = process.env.TRACK_APP_SECRET || "";
+  let domain = process.env.TRACK_DOMAIN || DEFAULT_DOMAIN;
 
   for (let i = 0; i < args.length; i++) {
     switch (args[i]) {
@@ -130,7 +131,7 @@ GoFoExpress 运单轨迹查询
     process.exit(1);
   }
   if (!appId || !appSecret) {
-    console.error("错误: 请提供 --app-id 和 --app-secret，或设置 GOFO_APP_ID / GOFO_APP_SECRET 环境变量");
+    console.error("错误: 请提供 --app-id 和 --app-secret，或设置 TRACK_APP_ID / TRACK_APP_SECRET 环境变量");
     process.exit(1);
   }
 

@@ -1,9 +1,9 @@
 {
-  "name": "@rory2026/gofo-track",
+  "name": "@rory2026/track-cli",
   "version": "1.0.0",
-  "description": "GoFoExpress 运单轨迹查询 CLI",
+  "description": "运单轨迹查询 CLI",
   "bin": {
-    "gofo-track": "cli.js"
+    "track-cli": "cli.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

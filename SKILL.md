@@ -1,46 +1,59 @@
 ---
-name: gofo-track
-description: "GoFoExpress 运单轨迹查询 — npm 全局 CLI"
+name: track-cli
+description: "运单轨迹查询 CLI — 安装和使用指南"
 version: 1.0.0
 author: Rory Yang
 ---
 
-# gofo-track
+# Track CLI 安装指南
 
-高链云(GoFoExpress) 运单轨迹查询命令行工具。npm 全局安装，跟飞书 `@larksuite/cli` 一样。
+以下步骤面向 AI Agent，部分步骤需要用户在浏览器中配合完成。
 
-## 安装
+## 环境要求
 
-```bash
-npm install -g @gofo/track
+开始安装之前，请确保环境中已安装：
+
+- Node.js（npm/npx）
+
+## 第 1 步 安装
+
+```shell
+npm install -g @rory2026/track-cli
 ```
 
-## 使用
+## 第 2 步 配置应用凭证
 
-### 方式一：命令行参数
+Agent 引导用户提供 App ID 和 App Secret，然后通过环境变量传入。
 
-```bash
-gofo-track TRK123456 --app-id "你的appId" --app-secret "你的ap...方式二：环境变量（推荐给 AI 智能体）
-export GOFO_APP_ID="你的appId"
-export GOFO_APP_SECRET=*** gofo-track TRK123456
+```shell
+export TRACK_APP_ID="用户提供的appId"
+export TRACK_APP_SECRET="用户提供的appSecret"
 ```
 
-## AI 智能体调用模板
+## 第 3 步 查询轨迹
 
-```bash
-# 1. 从对话上下文获取用户的 AppId 和 AppSecret
-# 2. 注入环境变量（不写配置文件）
-export GOFO_APP_ID="<app_id>"
-export GOFO_APP_SECRET="<app...n
-# 3. 查询轨迹
-gofo-track <运单号>
+```shell
+track-cli <运单号>
 ```
 
-## 参数
+## 参数说明
 
-| 参数 / 环境变量 | 说明 | 默认值 |
+| 选项 | 环境变量 | 说明 |
 |---|---|---|
-| `tracking_no`（位置参数） | 运单号 | — |
-| `--app-id` / `GOFO_APP_ID` | App ID | — |
-| `--app-secret` / `GOFO_APP_SECRET` | App Secret | — |
-| `--domain` / `GOFO_DOMAIN` | API 域名 | `https://uat-api-eu.gofoexpress.com` |
+| `--app-id` | `TRACK_APP_ID` | App ID |
+| `--app-secret` | `TRACK_APP_SECRET` | App Secret |
+| `--domain` | `TRACK_DOMAIN` | API 域名（默认: `https://uat-api-eu.gofoexpress.com`） |
+
+## 完整示例
+
+```shell
+# 安装
+npm install -g @rory2026/track-cli
+
+# 配置凭证
+export TRACK_APP_ID="cli_a9...d5"
+export TRACK_APP_SECRET="p6s...kQ"
+
+# 查询轨迹
+track-cli TRK123456
+```
