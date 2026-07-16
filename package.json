@@ -1,12 +1,12 @@
 {
-  "name": "gofo-track-cli",
+  "name": "@rory2026/gofo-track",
   "version": "1.0.0",
   "description": "GoFoExpress 运单轨迹查询 CLI",
   "bin": {
     "gofo-track": "cli.js"
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com"
   },
   "license": "MIT",
   "engines": {
