@@ -1,7 +1,7 @@
 {
   "name": "@rory2026/track-cli",
-  "version": "1.0.0",
-  "description": "运单轨迹查询 CLI",
+  "version": "2.0.0",
+  "description": "订单 OpenAPI CLI：创建订单、取消订单、查询轨迹",
   "bin": {
     "track-cli": "cli.js"
   },
@@ -11,6 +11,7 @@
   },
   "files": [
     "cli.js",
-    "SKILL.md"
+    "SKILL.md",
+    "order.example.json"
   ]
 }

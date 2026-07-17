@@ -1,0 +1,54 @@
+{
+  "cOrderNo": "YOUR-CUSTOMER-ORDER-NO",
+  "productType": "EXP",
+  "shippingType": "ZT",
+  "pickUpCode": "",
+  "declaredValue": "99",
+  "orderGoods": {
+    "weight": "1.5",
+    "length": "9",
+    "width": "1",
+    "height": "3"
+  },
+  "orderShipper": {
+    "shipperName": "Sender Name",
+    "shipperPhone": "13100000000",
+    "shipperCountry": "CN",
+    "shipperState": "Guangdong",
+    "shipperCity": "Shenzhen",
+    "shipperArea": "Futian",
+    "shipperStreet": "Street address",
+    "shipperCode": "518000",
+    "shipperEmail": "sender@example.com"
+  },
+  "orderConsignee": {
+    "consigneeName": "Receiver Name",
+    "consigneePhone": "0600000000",
+    "consigneeCountry": "FR",
+    "consigneeState": "Ile-de-France",
+    "consigneeCity": "Paris",
+    "consigneeArea": "",
+    "consigneeStreet": "Street address",
+    "address2": "",
+    "consigneeCode": "75001",
+    "remarks": "",
+    "consigneeEmail": "receiver@example.com"
+  },
+  "orderItemList": [
+    {
+      "itemNameEn": "Clothes",
+      "itemNameZh": "衣服",
+      "itemQty": "1"
+    }
+  ],
+  "orderInsurance": {
+    "insuredAmount": "0"
+  },
+  "orderCod": {
+    "codAmount": "0",
+    "currency": "EUR"
+  },
+  "productCode": "EU001",
+  "channelCode": "C0007",
+  "reference3": ""
+}

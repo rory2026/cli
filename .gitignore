@@ -3,6 +3,7 @@ dist/
 *.tgz
 .npmrc
 .env
+.hermes-tmp.*/
 publish_to_npm.js
 publish.js
 test_auth.js
